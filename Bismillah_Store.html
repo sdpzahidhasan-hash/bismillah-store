@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bismillah Store | অনলাইন মুদি দোকান</title>
+<style>
+:root{--green:#087443;--gold:#f4b942;--ink:#17231d;--muted:#66736c;--bg:#f5f8f5}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(120deg,#075b36,#0b8a55);color:white;padding:24px 16px}
+.wrap{max-width:1000px;margin:auto;padding:0 14px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:25px;font-weight:800}.tag{font-size:13px;opacity:.9}.hero{padding:25px 0 8px}.hero h1{font-size:25px;margin:0 0 8px}.hero p{margin:0;opacity:.9}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+button,.btn{border:0;border-radius:10px;padding:11px 14px;font-weight:700;cursor:pointer;background:var(--gold);color:#2c2412}
+button.secondary{background:white;color:var(--green)}.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:20px 0}
+input,select,textarea{padding:11px;border:1px solid #d6dfd9;border-radius:9px;font:inherit;background:white;max-width:100%}
+#search{flex:1;min-width:180px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:13px}
+.card{background:white;border:1px solid #e5ece7;border-radius:14px;padding:14px;box-shadow:0 3px 12px #143b2010}
+.pic{height:95px;border-radius:10px;background:#edf5ef;display:grid;place-items:center;font-size:42px}
+.card h3{font-size:16px;margin:10px 0 4px}.price{font-weight:800;color:var(--green);margin:5px 0 10px}
+.card button{width:100%;background:var(--green);color:white}
+section{margin:22px 0}.panel{background:white;border:1px solid #e5ece7;border-radius:14px;padding:16px}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid #edf1ee;padding:9px 0}
+small,.muted{color:var(--muted)}.hidden{display:none}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:9px}
+footer{text-align:center;padding:25px;color:var(--muted);font-size:13px}
+</style></head>
+<body>
+<header><div class="wrap">
+ <div class="top"><div><div class="logo">🌿 Bismillah Store</div><div class="tag">আপনার নিত্যপ্রয়োজনীয় পণ্যের বিশ্বস্ত ঠিকানা</div></div><button class="secondary" onclick="document.getElementById('cart').scrollIntoView()">🛒 কার্ট (<span id="count">0</span>)</button></div>
+ <div class="hero"><h1>স্বাগতম বিসমিল্লাহ স্টোরে</h1><p>ঘরে বসেই প্রয়োজনীয় মুদি পণ্য অর্ডার করুন।</p><div class="actions"><button onclick="document.getElementById('products').scrollIntoView()">পণ্য দেখুন</button><button class="secondary" onclick="document.getElementById('contact').scrollIntoView()">যোগাযোগ</button></div></div>
+</div></header>
+<main class="wrap">
+<section id="products"><h2>আমাদের পণ্য</h2><div class="bar"><input id="search" placeholder="পণ্যের নাম লিখে খুঁজুন..." oninput="render()"><select id="category" onchange="render()"><option value="">সব ক্যাটাগরি</option><option>চাল-ডাল</option><option>তেল-মসলা</option><option>সাবান-পরিচ্ছন্নতা</option><option>অন্যান্য</option></select></div><div class="grid" id="productGrid"></div></section>
+<section id="cart"><h2>আপনার অর্ডার</h2><div class="panel"><div id="cartItems"><p class="muted">এখনো কোনো পণ্য যোগ করা হয়নি।</p></div><div class="row"><span>পণ্যের মোট</span><b id="subtotal">৳০</b></div>
+<div class="row"><span>হোম ডেলিভারি চার্জ</span><b>৳৫০</b></div>
+<div class="row"><b>সর্বমোট</b><b id="total">৳৫০</b></div>
+<h3>ডেলিভারির তথ্য</h3><div class="formgrid"><input id="customer" placeholder="আপনার নাম"><input id="phone" placeholder="মোবাইল নম্বর"><input id="address" placeholder="সম্পূর্ণ ঠিকানা"></div>
+<p><b>পেমেন্ট পদ্ধতি</b></p><label><input type="radio" name="pay" value="ক্যাশ অন ডেলিভারি" checked> ক্যাশ অন ডেলিভারি</label><br><label><input type="radio" name="pay" value="বিকাশ (পেমেন্টের তথ্য ফোনে নিশ্চিত হবে)"> বিকাশ (পেমেন্টের তথ্য ফোনে নিশ্চিত হবে)</label>
+<p><button onclick="order()">WhatsApp-এ অর্ডার পাঠান</button></p><small>অর্ডার পাঠানোর আগে পণ্যের দাম ও ডেলিভারি চার্জ দোকান থেকে নিশ্চিত করে নিন।</small></div></section>
+<section id="contact"><h2>যোগাযোগ</h2><div class="panel"><b>Bismillah Store</b><p>📞 01890570030</p><p class="muted">দোকানের ঠিকানা ও ডেলিভারি এলাকার তথ্য এখানে যোগ করুন।</p></div></section>
+<section><details class="panel"><summary><b>দোকানদারের জন্য: পণ্য ও দাম যোগ/পরিবর্তন</b></summary><p class="muted">এই ডেমোতে পরিবর্তনগুলো এই ব্রাউজার/ডিভাইসেই সংরক্ষিত থাকবে।</p><div class="formgrid"><input id="pname" placeholder="পণ্যের নাম"><input id="pprice" type="number" min="0" placeholder="দাম (টাকা)"><select id="pcat"><option>চাল-ডাল</option><option>তেল-মসলা</option><option>সাবান-পরিচ্ছন্নতা</option><option>অন্যান্য</option></select><input id="pemoji" placeholder="ছবি/আইকন (যেমন 🛍️)"></div><p><button onclick="addProduct()">পণ্য যোগ করুন</button></p></details></section>
+</main><footer>© Bismillah Store — আল্লাহর নামে শুরু</footer>
+<script>
+const starter=[
+{name:"চাল",price:0,cat:"চাল-ডাল",emoji:"🍚"},{name:"মসুর ডাল",price:0,cat:"চাল-ডাল",emoji:"🫘"},
+{name:"সয়াবিন তেল",price:0,cat:"তেল-মসলা",emoji:"🫗"},{name:"লবণ",price:0,cat:"তেল-মসলা",emoji:"🧂"},
+{name:"হলুদ গুঁড়া",price:0,cat:"তেল-মসলা",emoji:"🟡"},{name:"গোসলের সাবান",price:0,cat:"সাবান-পরিচ্ছন্নতা",emoji:"🧼"}
+];
+let products=JSON.parse(localStorage.getItem("bs_products")||"null")||starter;
+let cart={};
+function save(){localStorage.setItem("bs_products",JSON.stringify(products))}
+function money(n){return "৳"+Number(n).toLocaleString("bn-BD")}
+function render(){
+ const q=document.getElementById("search").value.toLowerCase(),c=document.getElementById("category").value;
+ productGrid.innerHTML="";
+ products.filter(p=>p.name.toLowerCase().includes(q)&&(!c||p.cat===c)).forEach((p,i)=>{
+ let real=products.indexOf(p),d=document.createElement("div");d.className="card";
+ d.innerHTML=`<div class="pic">${p.emoji||"🛍️"}</div><h3>${p.name}</h3><div class="price">${p.price>0?money(p.price):"দাম জানতে যোগাযোগ করুন"}</div><button ${p.price<=0?"disabled":""} onclick="addCart(${real})">কার্টে যোগ করুন</button>`;
+ productGrid.appendChild(d);
+ });
+}
+function addCart(i){cart[i]=(cart[i]||0)+1;drawCart()}
+function drawCart(){
+ let keys=Object.keys(cart);count.textContent=keys.reduce((s,k)=>s+cart[k],0);
+ cartItems.innerHTML=keys.length?"":"<p class='muted'>এখনো কোনো পণ্য যোগ করা হয়নি।</p>";
+ let sum=0;keys.forEach(k=>{let p=products[k],sub=p.price*cart[k];sum+=sub;let r=document.createElement("div");r.className="row";r.innerHTML=`<span>${p.name} × ${cart[k]}</span><span>${money(sub)} <button class="secondary" onclick="removeItem(${k})">−</button></span>`;cartItems.appendChild(r)});
+ subtotal.textContent=money(sum);
+ total.textContent=money(sum+50);
+}
+function removeItem(i){cart[i]--;if(cart[i]<=0)delete cart[i];drawCart()}
+function addProduct(){
+ let n=pname.value.trim(),v=Number(pprice.value);if(!n||!Number.isFinite(v)||v<=0){alert("পণ্যের নাম ও সঠিক দাম দিন");return}
+ products.push({name:n,price:v,cat:pcat.value,emoji:pemoji.value||"🛍️"});save();render();pname.value="";pprice.value="";pemoji.value="";
+}
+function order(){
+ let keys=Object.keys(cart);if(!keys.length){alert("আগে কার্টে পণ্য যোগ করুন");return}
+ let name=customer.value.trim(),ph=phone.value.trim(),addr=address.value.trim();if(!name||!ph||!addr){alert("নাম, মোবাইল ও ঠিকানা পূরণ করুন");return}
+ let lines=keys.map(k=>`${products[k].name} x ${cart[k]} = ${money(products[k].price*cart[k])}`).join("\n");
+ let productTotal=keys.reduce((s,k)=>s+products[k].price*cart[k],0);
+ let delivery=50, totalPrice=productTotal+delivery;
+ let pay=document.querySelector('input[name="pay"]:checked').value;
+ let msg=`বিসমিল্লাহ স্টোরে নতুন অর্ডার\nনাম: ${name}\nমোবাইল: ${ph}\nঠিকানা: ${addr}\n\n${lines}\nপণ্যের মোট: ${money(productTotal)}\nডেলিভারি চার্জ: ${money(delivery)}\nসর্বমোট: ${money(totalPrice)}\nপেমেন্ট: ${pay}`;
+ window.open("https://wa.me/8801890570030?text="+encodeURIComponent(msg),"_blank");
+}
+render();drawCart();
+</script></body></html>
